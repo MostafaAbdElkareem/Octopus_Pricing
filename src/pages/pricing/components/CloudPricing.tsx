@@ -26,12 +26,16 @@ const isChargedTargets = (valueTargets: number | string): boolean => {
 const isChargedMinutes = (valueMinutes: number | string): boolean => {
   return valueMinutes > FREE_MINUTES;
 };
-
-const CloudPricing = () => {
+/* ############# added new props initTargets and initailMinutes from wizard */
+const CloudPricing = (props: { initTargets?:number,initMinutes?:number }) => {
   const classes = useStyles();
 
   // Deployment Targets
-  const [valueTargets, setValueTargets] = useState(FREE_TARGETS);
+/* use initailTarget if there is a value sent to comoponent */
+console.log(props.initTargets);
+
+const newTarget = props.initTargets === undefined ? FREE_TARGETS : props.initTargets
+  const [valueTargets, setValueTargets] = useState(newTarget);
 
   const handleSliderChange = (event: any, newValue: any) => {
     setValueTargets(newValue);
@@ -62,9 +66,12 @@ const CloudPricing = () => {
   };
 
   // Deployment minutes
+  /* use initailMinutes if there is a value sent to comoponent */
+  console.log(props.initMinutes);
+  const newMinutes = props.initMinutes === undefined  ? FREE_MINUTES : props.initMinutes
   const [valueMinutes, setValueMinutes] = useState<
     number | string | Array<number | string>
-  >(FREE_MINUTES);
+  >(newMinutes);
 
   const handleSliderChangeMinutes = (
     event: any,

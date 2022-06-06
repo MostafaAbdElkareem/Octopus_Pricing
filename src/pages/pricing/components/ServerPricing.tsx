@@ -26,12 +26,13 @@ const isChargedTargets = (valueTargets: number | string): boolean => {
   return valueTargets > FREE_TARGETS;
 };
 
-const ServerPricing = () => {
+const ServerPricing = ( props: { initTargets?: number,isUnlimited?:boolean}) => {
   // Styling
   const classes = useStyles();
 
   // Deployment Targets
-  const [valueTargets, setValueTargets] = useState(FREE_TARGETS);
+  const newTarget = props.initTargets === undefined ?  FREE_TARGETS :  props.initTargets
+  const [valueTargets, setValueTargets] = useState(newTarget);
 
   const handleSliderChange = (event: any, newValue: any) => {
     setValueTargets(newValue);
@@ -63,13 +64,16 @@ const ServerPricing = () => {
 
   // High Availablity
   const [LastTargetsSliderVal, setLastTargetsSliderVal] = useState(
-    FREE_TARGETS
+    valueTargets
   );
+  
   const [haCheckboxVal, setHaCheckboxVal] = useState(false);
   const isEligibleHA = valueTargets >= HIGH_AVAILABILITY_TARGETS;
   const renderHaChecked = haCheckboxVal || isEligibleHA;
   const highAvailabilityCheck = (e: { target: { checked: any } }) => {
     // Updating checkbox state
+    /* set checkbox value from wizard step */
+    
     const newHaCheckboxVal = e.target.checked;
     setHaCheckboxVal(newHaCheckboxVal);
     // [ ] => [x]
@@ -86,10 +90,11 @@ const ServerPricing = () => {
   };
 
   // Unlimited Targets
+  const initChxBox = props.isUnlimited === undefined ?  false : props.isUnlimited
   const [
     unlimitedTargetsCheckboxVal,
     setUnlimitedTargetsCheckboxVal,
-  ] = useState(false);
+  ] = useState(initChxBox);
   const isEligibleUnlimited = valueTargets >= UNLIMITED_TARGETS;
   const renderUnlimitedTargetsChecked =
     unlimitedTargetsCheckboxVal || isEligibleUnlimited;
@@ -153,7 +158,7 @@ const ServerPricing = () => {
               <Grid container spacing={2} alignItems="center">
                 <Grid item xs>
                   <Slider
-                    value={valueTargets}
+                    value={typeof valueTargets === "number" ? valueTargets : newTarget}
                     onChange={handleSliderChange}
                     aria-labelledby="input-slider"
                     min={10}
