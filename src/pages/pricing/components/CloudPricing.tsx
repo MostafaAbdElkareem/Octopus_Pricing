@@ -9,7 +9,7 @@ const useStyles = makeStyles({
     width: 250,
   },
   slider: {
-    width: 212
+
   },
   input: {
     width: 80
@@ -156,7 +156,6 @@ const CloudPricing = (props: { initTargets?: number, initMinutes?: number }) => 
         <Grid container spacing={2} alignItems="center">
           <Grid item xs>
             <Slider
-              className={classes.slider}
               value={typeof valueTargets === "number" ? valueTargets : 0}
               onChange={handleSliderChange}
               valueLabelDisplay="auto"
@@ -166,7 +165,7 @@ const CloudPricing = (props: { initTargets?: number, initMinutes?: number }) => 
             />
 
           </Grid>
-          <Grid item xs>
+          <Grid item >
             <Input
               className={classes.input}
               value={valueTargets}
@@ -194,7 +193,6 @@ const CloudPricing = (props: { initTargets?: number, initMinutes?: number }) => 
         <Grid container spacing={2} alignItems="center">
           <Grid item xs>
             <Slider
-              className={classes.slider}
               value={typeof valueMinutes === "number" ? valueMinutes : 0}
               onChange={handleSliderChangeMinutes}
               valueLabelDisplay="auto"

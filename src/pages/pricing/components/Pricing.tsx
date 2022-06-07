@@ -87,12 +87,12 @@ const Pricing = () => {
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         <Fade in={discover} appear={true} timeout={2000} mountOnEnter unmountOnExit>
           <Grid item xs={12} sm={4} md={6}>
-            <Paper elevation={2} className="price-container"><Cloud /></Paper>
+            <Paper elevation={2} className="discover-price-container"><Cloud /></Paper>
           </Grid>
         </Fade>
         <Fade in={discover} appear={true} timeout={3400} mountOnEnter unmountOnExit>
           <Grid item xs={12} sm={4} md={6}>
-            <Paper elevation={2} className="price-container"><Server /></Paper>
+            <Paper elevation={2} className="discover-price-container"><Server /></Paper>
           </Grid>
         </Fade>
       </Grid>
