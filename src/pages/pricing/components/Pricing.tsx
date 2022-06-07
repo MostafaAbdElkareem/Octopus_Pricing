@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState } from "react";
 import Server from "./ServerPricing";
 import Cloud from "./CloudPricing";
+import Features from "./Features";
 import Container from '@mui/material/Container';
 import { FormControlLabel, Paper, Typography, Input, Checkbox, Tab, Fade, Box, Grid, Stack } from '@mui/material';
 import discoverImg from "../../../resources/Images/discover.png";
@@ -82,18 +83,20 @@ const Pricing = () => {
     setDiscover(false);
   }
   const discoverContainer = (
-    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-      <Fade in={discover} appear={true} timeout={2000} mountOnEnter unmountOnExit>
-        <Grid item xs={12} sm={4} md={4}>
-          <Paper elevation={2} className="price-container"><Cloud /></Paper>
-        </Grid>
-      </Fade>
-      <Fade in={discover} appear={true} timeout={3400} mountOnEnter unmountOnExit>
-        <Grid item xs={12} sm={4} md={4}>
-          <Paper elevation={2} className="price-container"><Server /></Paper>
-        </Grid>
-      </Fade>
-    </Grid>
+    <Box className="centered">
+      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+        <Fade in={discover} appear={true} timeout={2000} mountOnEnter unmountOnExit>
+          <Grid item xs={12} sm={4} md={6}>
+            <Paper elevation={2} className="price-container"><Cloud /></Paper>
+          </Grid>
+        </Fade>
+        <Fade in={discover} appear={true} timeout={3400} mountOnEnter unmountOnExit>
+          <Grid item xs={12} sm={4} md={6}>
+            <Paper elevation={2} className="price-container"><Server /></Paper>
+          </Grid>
+        </Fade>
+      </Grid>
+    </Box>
   )
 
   const validateContainer = () => {
@@ -108,74 +111,77 @@ const Pricing = () => {
     return planOutput
   }
   return (
-    <Container fixed>
-      {/*   <TransitionGroup> */}
-      <Box component="div" className="space">
-        <Typography variant="h4" component="h4">
-          Welcome to Pricing guide
-        </Typography>
-        <Typography variant="body1" component="p">
-          Are you Ready, We will help you get the most suitable plan for your business through simple steps
-          Follow the guide, Also tryout our NEW Consumption based model for more accurate monthly cost forcasting
-        </Typography>
-      </Box>
-      <Fade in={!(discover || validate)} appear={true} timeout={300} mountOnEnter unmountOnExit >
-        <Grid container spacing={{ xs: 2, md: 1 }} columns={{ xs: 4, sm: 12, md: 12 }} className="space">
-          <Grid item xs={12} sm={5} md={6}>
-            <Stack direction="row" spacing={1}>
-              <Box component="span" className="img-container">
-                <img src={discoverImg} alt="" />
-              </Box>
-              <Box component="div" className="description">
-                <Typography variant="h5" component="h5">
-                  Discover Deployment Options
-                </Typography>
-                <Typography variant="body1" component="p">
-                  You need more details about our deployment tools, features and monthly cost , No clear target deployment numbers or minutes
-                </Typography>
-                <Box className="pricing-action" onClick={() => actionHandle(0, discover)} >
-                  Compare
+    <>
+      <Container fixed>
+        {/*   <TransitionGroup> */}
+        <Box component="div" className="space">
+          <Typography variant="h4" component="h4">
+            Welcome to Pricing guide
+          </Typography>
+          <Typography variant="body1" component="p">
+            Are you Ready, We will help you get the most suitable plan for your business through simple steps
+            Follow the guide, Also tryout our NEW Consumption based model for more accurate monthly cost forcasting
+          </Typography>
+        </Box>
+        <Fade in={!(discover || validate)} appear={true} timeout={300} mountOnEnter unmountOnExit >
+          <Grid container spacing={{ xs: 2, md: 1 }} columns={{ xs: 4, sm: 12, md: 12 }} className="space">
+            <Grid item xs={12} sm={5} md={6}>
+              <Stack direction="row" spacing={1}>
+                <Box component="span" className="img-container">
+                  <img src={discoverImg} alt="" />
                 </Box>
-              </Box>
-            </Stack>
+                <Box component="div" className="description">
+                  <Typography variant="h5" component="h5">
+                    Discover Deployment Options
+                  </Typography>
+                  <Typography variant="body1" component="p">
+                    You need more details about our deployment tools, features and monthly cost , No clear target deployment numbers or minutes
+                  </Typography>
+                  <Box className="pricing-action" onClick={() => actionHandle(0, discover)} >
+                    Compare
+                  </Box>
+                </Box>
+              </Stack>
+            </Grid>
+
+            <Grid item xs={12} sm={5} md={6}>
+              <Stack direction="row" spacing={2}>
+                <Box component="span" className="img-container">
+                  <img src={validateImg} alt="" />
+                </Box>
+                <Box component="div" className="description">
+                  <Typography variant="h5" component="h5">
+                    Validate Cost
+                  </Typography>
+                  <Typography variant="body1" component="p">
+                    You need to check the monthly cost against your initial data (start with filling your data)
+                  </Typography>
+                  <Box>
+                    {platformsTabs}
+                  </Box>
+
+                  <Box className="pricing-action" onClick={() => actionHandle(1, validate)} >
+                    Calculate
+                  </Box>
+                </Box>
+              </Stack>
+
+            </Grid>
           </Grid>
-
-          <Grid item xs={12} sm={5} md={6}>
-            <Stack direction="row" spacing={2}>
-              <Box component="span" className="img-container">
-                <img src={validateImg} alt="" />
-              </Box>
-              <Box component="div" className="description">
-                <Typography variant="h5" component="h5">
-                  Validate Cost
-                </Typography>
-                <Typography variant="body1" component="p">
-                  You need to check the monthly cost against your initial data (start with filling your data)
-                </Typography>
-                <Box>
-                  {platformsTabs}
-                </Box>
-
-                <Box className="pricing-action" onClick={() => actionHandle(1, validate)} >
-                  Calculate
-                </Box>
-              </Box>
-            </Stack>
-
-          </Grid>
-        </Grid>
-      </Fade>
-      <Stack direction="row" spacing={2}>
-        <Fade in={discover || validate} appear={true} timeout={{ enter: 3800, exit: 10 }} mountOnEnter >
-          <Box className="back" onClick={() => backHandle()}> <ArrowBackIcon /></Box>
         </Fade>
-        {/* discover */}
-        {discover && discoverContainer}
-        {/* validate */}
-        {validate && validateContainer()}
-      </Stack>
+        <Stack direction="row" spacing={2}>
+          <Fade in={discover || validate} appear={true} timeout={{ enter: 3800, exit: 10 }} mountOnEnter >
+            <Box className="back" onClick={() => backHandle()}> <ArrowBackIcon /></Box>
+          </Fade>
+          {/* discover */}
+          {discover && discoverContainer}
+          {/* validate */}
+          {validate && validateContainer()}
+        </Stack>
 
-    </Container>
+      </Container>
+      <Features />
+    </>
   )
 }
 export default Pricing
