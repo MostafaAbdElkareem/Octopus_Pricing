@@ -120,7 +120,7 @@ const Pricing = () => {
         </Typography>
       </Box>
       <Fade in={!(discover || validate)} appear={true} timeout={300} mountOnEnter unmountOnExit >
-        <Grid container spacing={{ xs: 2, md: 1 }} columns={{ xs: 4, sm: 12, md: 12 }}>
+        <Grid container spacing={{ xs: 2, md: 1 }} columns={{ xs: 4, sm: 12, md: 12 }} className="space">
           <Grid item xs={12} sm={5} md={6}>
             <Stack direction="row" spacing={1}>
               <Box component="span" className="img-container">
