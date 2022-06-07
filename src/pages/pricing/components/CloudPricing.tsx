@@ -27,14 +27,14 @@ const isChargedMinutes = (valueMinutes: number | string): boolean => {
   return valueMinutes > FREE_MINUTES;
 };
 /* ############# added new props initTargets and initailMinutes from wizard */
-const CloudPricing = (props: { initTargets?:number,initMinutes?:number }) => {
+const CloudPricing = (props: { initTargets?: number, initMinutes?: number }) => {
   const classes = useStyles();
 
   // Deployment Targets
-/* use initailTarget if there is a value sent to comoponent */
-console.log(props.initTargets);
+  /* use initailTarget if there is a value sent to comoponent */
+  console.log(props.initTargets);
 
-const newTarget = props.initTargets === undefined ? FREE_TARGETS : props.initTargets
+  const newTarget = props.initTargets === undefined ? FREE_TARGETS : props.initTargets
   const [valueTargets, setValueTargets] = useState(newTarget);
 
   const handleSliderChange = (event: any, newValue: any) => {
@@ -68,7 +68,7 @@ const newTarget = props.initTargets === undefined ? FREE_TARGETS : props.initTar
   // Deployment minutes
   /* use initailMinutes if there is a value sent to comoponent */
   console.log(props.initMinutes);
-  const newMinutes = props.initMinutes === undefined  ? FREE_MINUTES : props.initMinutes
+  const newMinutes = props.initMinutes === undefined ? FREE_MINUTES : props.initMinutes
   const [valueMinutes, setValueMinutes] = useState<
     number | string | Array<number | string>
   >(newMinutes);
@@ -141,17 +141,6 @@ const newTarget = props.initTargets === undefined ? FREE_TARGETS : props.initTar
     <>
       <Box>
         <h2>Cloud</h2>
-        <p>
-          <span>
-            {formatCcy(totalPrice)}
-            <sup>*</sup>
-          </span>
-          <span> / Month</span>
-        </p>
-        <p>
-          High availability feature included in plan with more than 100
-          deployment
-        </p>
 
         <Grid item>
           <Typography>
@@ -230,6 +219,22 @@ const newTarget = props.initTargets === undefined ? FREE_TARGETS : props.initTar
             </Grid>
           </div>
         </Grid>
+        <p>
+          High availability feature included in plan with more than 100
+          deployment
+        </p>
+
+        <p>
+          <Typography variant="h4" component="h4">
+            {formatCcy(totalPrice)}
+            <sup>*</sup>
+          </Typography>
+          <span> / Month</span>
+        </p>
+        <Box className="pricing-action" >
+          Start a Trial
+
+        </Box>
       </Box>
     </>
   );

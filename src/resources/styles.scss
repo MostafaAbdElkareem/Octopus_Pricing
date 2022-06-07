@@ -1,0 +1,74 @@
+body {
+    background-image: url(Images/Octopus_bg.jpg);
+    background-position: 0 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.space {
+    margin: 150px 0 100px 0;
+}
+
+.img-container {
+    background: #fff;
+    padding: 10px;
+    border-radius: 70px;
+    width: 115px;
+    height: 115px;
+
+    img {
+        max-width: 90px;
+        position: relative;
+        left: -25px;
+    }
+}
+
+.pricing-action {
+    background: #00b065 !important;
+    color: #fff;
+    font-weight: 500;
+    padding: 8px 25px;
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.back {
+    background: #3f9cda !important;
+    color: #fff;
+    font-weight: 500;
+    padding: 10px;
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 24px;
+    margin: 15px 0px;
+    max-height: 45px;
+}
+
+.price-container {
+    padding: 20px;
+    width: 350px;
+}
+
+.tab-icon {
+    width: 24px;
+    margin: 0 5px;
+}
+
+.tab-container {
+    margin-top: 20px;
+
+    .MuiTab-root {
+        background: #ccc !important;
+        margin: 0 4px;
+        padding: 10px 20px;
+        color: #fff !important;
+    }
+
+    .Mui-selected {
+        background: #fff !important;
+        color: #333 !important;
+    }
+
+}

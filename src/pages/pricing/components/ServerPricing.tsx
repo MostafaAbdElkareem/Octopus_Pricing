@@ -26,12 +26,12 @@ const isChargedTargets = (valueTargets: number | string): boolean => {
   return valueTargets > FREE_TARGETS;
 };
 
-const ServerPricing = ( props: { initTargets?: number,isUnlimited?:boolean}) => {
+const ServerPricing = (props: { initTargets?: number, isUnlimited?: boolean }) => {
   // Styling
   const classes = useStyles();
 
   // Deployment Targets
-  const newTarget = props.initTargets === undefined ?  FREE_TARGETS :  props.initTargets
+  const newTarget = props.initTargets === undefined ? FREE_TARGETS : props.initTargets
   const [valueTargets, setValueTargets] = useState(newTarget);
 
   const handleSliderChange = (event: any, newValue: any) => {
@@ -66,14 +66,14 @@ const ServerPricing = ( props: { initTargets?: number,isUnlimited?:boolean}) => 
   const [LastTargetsSliderVal, setLastTargetsSliderVal] = useState(
     valueTargets
   );
-  
+
   const [haCheckboxVal, setHaCheckboxVal] = useState(false);
   const isEligibleHA = valueTargets >= HIGH_AVAILABILITY_TARGETS;
   const renderHaChecked = haCheckboxVal || isEligibleHA;
   const highAvailabilityCheck = (e: { target: { checked: any } }) => {
     // Updating checkbox state
     /* set checkbox value from wizard step */
-    
+
     const newHaCheckboxVal = e.target.checked;
     setHaCheckboxVal(newHaCheckboxVal);
     // [ ] => [x]
@@ -90,7 +90,7 @@ const ServerPricing = ( props: { initTargets?: number,isUnlimited?:boolean}) => 
   };
 
   // Unlimited Targets
-  const initChxBox = props.isUnlimited === undefined ?  false : props.isUnlimited
+  const initChxBox = props.isUnlimited === undefined ? false : props.isUnlimited
   const [
     unlimitedTargetsCheckboxVal,
     setUnlimitedTargetsCheckboxVal,
@@ -131,19 +131,7 @@ const ServerPricing = ( props: { initTargets?: number,isUnlimited?:boolean}) => 
     <>
       <Box>
         <h2>Server</h2>
-        <p>
-          <span>
-            {renderUnlimitedTargetsChecked
-              ? UNLIMITED_PRICE
-              : formatCcy(totalPrice)}
-            <sup>*</sup>
-          </span>
-          <span> / Month</span>
-        </p>
-        <p>
-          High availability feature included in plan with more than 100
-          deployment targets.
-        </p>
+
 
         <Grid item>
           <Typography>
@@ -198,6 +186,23 @@ const ServerPricing = ( props: { initTargets?: number,isUnlimited?:boolean}) => 
             />
           </div>
         </Grid>
+
+        <p>
+          High availability feature included in plan with more than 100
+          deployment targets.
+        </p>
+        <p>
+          <Typography variant="h4" component="h4">
+            {renderUnlimitedTargetsChecked
+              ? UNLIMITED_PRICE
+              : formatCcy(totalPrice)}
+            <sup>*</sup>
+          </Typography>
+          <span> / Month</span>
+        </p>
+        <Box className="pricing-action" >
+          Start a Trial
+        </Box>
       </Box>
     </>
   );
