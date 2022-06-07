@@ -3,8 +3,7 @@ import { useState } from "react";
 import Server from "./ServerPricing";
 import Cloud from "./CloudPricing";
 import Container from '@mui/material/Container';
-import CalculateIcon from '@mui/icons-material/Calculate';
-import { FormControlLabel, Paper, Typography, Input, Checkbox, Tab, Grow, Fade, Box, Grid, Stack } from '@mui/material';
+import { FormControlLabel, Paper, Typography, Input, Checkbox, Tab, Fade, Box, Grid, Stack } from '@mui/material';
 import discoverImg from "../../../resources/Images/discover.png";
 import validateImg from "../../../resources/Images/validate.png";
 import server from "../../../resources/Images/server.png";
@@ -51,7 +50,7 @@ const Pricing = () => {
           </Stack>
         </TabPanel>
         <TabPanel value="server">
-          <Stack direction="row" spacing={2}>
+          <Stack direction="row" spacing={2} >
             <Box>
               Targets:
               <Input fullWidth={true} required value={serverTargets} margin="dense" onChange={(e) => setServerTarget(parseInt(e.target.value, 10))}
@@ -84,12 +83,12 @@ const Pricing = () => {
   }
   const discoverContainer = (
     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-      <Fade in={discover} timeout={400} mountOnEnter unmountOnExit>
+      <Fade in={discover} appear={true} timeout={2000} mountOnEnter unmountOnExit>
         <Grid item xs={12} sm={4} md={4}>
           <Paper elevation={2} className="price-container"><Cloud /></Paper>
         </Grid>
       </Fade>
-      <Fade in={discover} timeout={1000} mountOnEnter unmountOnExit>
+      <Fade in={discover} appear={true} timeout={3400} mountOnEnter unmountOnExit>
         <Grid item xs={12} sm={4} md={4}>
           <Paper elevation={2} className="price-container"><Server /></Paper>
         </Grid>
@@ -100,7 +99,11 @@ const Pricing = () => {
   const validateContainer = () => {
     const plan = platform === "cloud" ? <Cloud initMinutes={minutes} initTargets={cloudTargets} /> : <Server initTargets={serverTargets} isUnlimited={isUnlimited} />;
     const planOutput = (
-      <Fade in={validate} timeout={2000} mountOnEnter unmountOnExit><Paper elevation={2} className="price-container">{plan}</Paper></Fade>
+      <Fade in={validate} timeout={2000} mountOnEnter unmountOnExit>
+        <Box className="centered">
+          <Paper elevation={2} className="price-container">{plan}</Paper>
+        </Box>
+      </Fade>
     )
     return planOutput
   }
@@ -117,13 +120,13 @@ const Pricing = () => {
         </Typography>
       </Box>
       <Fade in={!(discover || validate)} appear={true} timeout={300} mountOnEnter unmountOnExit >
-        <Grid container spacing={{ xs: 2, md: 5 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-          <Grid item xs={12} sm={4} md={6}>
-            <Stack direction="row" spacing={2}>
+        <Grid container spacing={{ xs: 2, md: 1 }} columns={{ xs: 4, sm: 12, md: 12 }}>
+          <Grid item xs={12} sm={5} md={6}>
+            <Stack direction="row" spacing={1}>
               <Box component="span" className="img-container">
                 <img src={discoverImg} alt="" />
               </Box>
-              <Box component="div">
+              <Box component="div" className="description">
                 <Typography variant="h5" component="h5">
                   Discover Deployment Options
                 </Typography>
@@ -136,13 +139,13 @@ const Pricing = () => {
               </Box>
             </Stack>
           </Grid>
-          <Grid item xs={12} sm={4} md={6}>
+
+          <Grid item xs={12} sm={5} md={6}>
             <Stack direction="row" spacing={2}>
               <Box component="span" className="img-container">
                 <img src={validateImg} alt="" />
               </Box>
-
-              <Box component="div">
+              <Box component="div" className="description">
                 <Typography variant="h5" component="h5">
                   Validate Cost
                 </Typography>
@@ -163,7 +166,7 @@ const Pricing = () => {
         </Grid>
       </Fade>
       <Stack direction="row" spacing={2}>
-        <Fade in={discover || validate} timeout={1000} mountOnEnter unmountOnExit>
+        <Fade in={discover || validate} appear={true} timeout={{ enter: 3800, exit: 10 }} mountOnEnter >
           <Box className="back" onClick={() => backHandle()}> <ArrowBackIcon /></Box>
         </Fade>
         {/* discover */}
@@ -171,6 +174,7 @@ const Pricing = () => {
         {/* validate */}
         {validate && validateContainer()}
       </Stack>
+
     </Container>
   )
 }

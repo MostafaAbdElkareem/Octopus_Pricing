@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import classNames from "classnames";
-import { Box, Grid, Input, Slider, Typography } from "@material-ui/core";
+import { Divider, Box, Grid, Input, Slider, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { formatCcy, handleInvalidValue } from "../../../utils";
 import { FormControlLabel } from "@material-ui/core";
@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     width: 250,
   },
   input: {
-    width: 42,
+    width: 80,
   },
 });
 
@@ -130,79 +130,79 @@ const ServerPricing = (props: { initTargets?: number, isUnlimited?: boolean }) =
   return (
     <>
       <Box>
-        <h2>Server</h2>
+        <h2><a href="https://octopus.com/pricing/server">Server</a></h2>
+        <Typography>
+          For{" "}
+          {renderUnlimitedTargetsChecked
+            ? ` unlimited deployment targets`
+            : " up to " + valueTargets + " deployment targets "}
+        </Typography>
 
-
-        <Grid item>
-          <Typography>
-            For{" "}
-            {renderUnlimitedTargetsChecked
-              ? ` unlimited deployment targets`
-              : " up to " + valueTargets + " deployment targets "}
-          </Typography>
-
-          <div className={classes.root}>
-            {renderUnlimitedTargetsChecked ? null : (
-              <Grid container spacing={2} alignItems="center">
-                <Grid item xs>
-                  <Slider
-                    value={typeof valueTargets === "number" ? valueTargets : newTarget}
-                    onChange={handleSliderChange}
-                    aria-labelledby="input-slider"
-                    min={10}
-                    max={2000}
-                  />
-                </Grid>
-
-                <Grid item>
-                  <Input
-                    className={classes.input}
-                    value={valueTargets}
-                    margin="dense"
-                    onChange={(e) =>
-                      updateUserTargets(parseInt(e.target.value, 10))
-                    }
-                    onBlur={handleBlur}
-                    inputProps={{
-                      step: 10,
-                      min: 10,
-                      max: 2000,
-                      type: "number",
-                      "aria-labelledby": "input-slider",
-                    }}
-                  />
-                </Grid>
-              </Grid>
-            )}
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={renderUnlimitedTargetsChecked}
-                  onChange={unlimitedTargetsCheck}
-                  name="unlimitedTargets"
+        <div>
+          {renderUnlimitedTargetsChecked ? null : (
+            <Grid container spacing={2} alignItems="center">
+              <Grid item xs>
+                <Slider
+                  value={typeof valueTargets === "number" ? valueTargets : newTarget}
+                  valueLabelDisplay="auto"
+                  onChange={handleSliderChange}
+                  aria-labelledby="input-slider"
+                  min={10}
+                  max={2000}
                 />
-              }
-              label="Unlimited Targets"
-            />
-          </div>
-        </Grid>
+              </Grid>
 
-        <p>
+              <Grid item>
+                <Input
+                  className={classes.input}
+                  value={valueTargets}
+                  margin="dense"
+                  onChange={(e) =>
+                    updateUserTargets(parseInt(e.target.value, 10))
+                  }
+                  onBlur={handleBlur}
+                  inputProps={{
+                    step: 10,
+                    min: 10,
+                    max: 2000,
+                    type: "number",
+                    "aria-labelledby": "input-slider",
+                  }}
+                />
+              </Grid>
+            </Grid>
+          )}
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={renderUnlimitedTargetsChecked}
+                onChange={unlimitedTargetsCheck}
+                name="unlimitedTargets"
+                color="primary"
+              />
+            }
+            label="Unlimited Targets"
+          />
+        </div>
+
+
+        <Typography variant="caption" >
           High availability feature included in plan with more than 100
           deployment targets.
-        </p>
-        <p>
-          <Typography variant="h4" component="h4">
-            {renderUnlimitedTargetsChecked
-              ? UNLIMITED_PRICE
-              : formatCcy(totalPrice)}
-            <sup>*</sup>
-          </Typography>
-          <span> / Month</span>
-        </p>
-        <Box className="pricing-action" >
-          Start a Trial
-        </Box>
+        </Typography>
+        <Divider variant="fullWidth" className="line" />
+        <Typography variant="h4" >
+          {renderUnlimitedTargetsChecked
+            ? UNLIMITED_PRICE
+            : formatCcy(totalPrice)}
+          <sup>*</sup>
+        </Typography>
+        <span> / Month</span>
+
+
+      </Box>
+      <Box className="pricing-action" >
+        Start a Trial
       </Box>
     </>
   );
